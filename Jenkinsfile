@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Build desde el agente de compilacion esclavo') {
+        stage('Build desde el agente de compilacion esclavo para maven') {
             agent {
                 label '10.0.0.5'
             }
@@ -9,7 +9,7 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Build desde el agente de compilacion esclavo') {
+        stage('Build desde el agente de compilacion esclavo para nodejs') {
             agent {
                 label '10.0.0.5'
             }
