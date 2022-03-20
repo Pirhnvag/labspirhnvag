@@ -3,9 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-          sshagent(credentials: ['deploymv', variable: 'SSH_KEY_DOCKER']) {
+          sshagent(credentials: ['deploymv']) {
             sh '''
-                ssh -i $SSH_KEY_DOCKER azureuser@20.127.128.16 'df -h'
+                ssh -i env.SSH_KEY_DOCKER azureuser@20.127.128.16 'df -h'
             '''
           }
       }
