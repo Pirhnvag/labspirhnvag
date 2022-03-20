@@ -9,13 +9,12 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-    stage('Build desde el nodo maestro') {
+        stage('Build desde el agente de compilacion esclavo') {
             agent {
-                image 'maven:3.8.1-adoptopenjdk-11'
-                args '-v /root/.m2:/root/.m2' 
+                label '10.0.0.5'
             }
             steps {
-                sh 'mvn --version'
+                sh 'node --version'
             }
         }
     }
