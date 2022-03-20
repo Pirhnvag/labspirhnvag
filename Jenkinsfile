@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Build desde el agente de compilacion esclavo') {
             agent {
