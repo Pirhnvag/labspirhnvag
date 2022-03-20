@@ -1,19 +1,11 @@
 pipeline {
-    agent none 
+    agent none
     stages {
-        stage('Example Build') {
-            agent { docker 'maven:3.8.1-adoptopenjdk-11' } 
+        stage('Non-Sequential Stage') {
+            agent {
+                label '10.0.0.5'
+            }
             steps {
-                echo 'Hello, Maven'
-                sh 'mvn --version'
+                echo "On Non-Sequential Stage"
             }
         }
-        stage('Example Test') {
-            agent { docker 'openjdk:8-jre' } 
-            steps {
-                echo 'Hello, JDK'
-                sh 'java -version'
-            }
-        }
-    }
-}
