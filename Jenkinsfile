@@ -9,6 +9,11 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
+        stage('Deploy jar en el servidor destino') {
+            steps {
+                sh 'scp -i /home/azureuser/deployserver_key.pem /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser'                 
+            }
+        }
         stage('SSH remote virtual machine') {
         agent {
                 label '10.0.0.5'
