@@ -5,7 +5,7 @@ pipeline {
             steps {
           sshagent(credentials: ['deploymv']) {
             sh '''
-               ssh -i $SSH_KEY_DOCKER -t azureuser@20.127.128.16 'ls -l'
+               ssh -i $SSH_KEY_DOCKER -l azureuser 20.127.128.16 -t 'ls -l'
             '''
           }
       }
