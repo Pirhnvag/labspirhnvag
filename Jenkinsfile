@@ -6,7 +6,7 @@ pipeline {
                 echo 'Ejecutando deploy hacia la maquina docker'
                 withCredentials([file(credentialsId: 'deploymv', variable: 'SSH_KEY_DOCKER')]) {
                     sh '''
-                    ssh -i /home/azureuser/deployserver_key.pem azureuser@20.127.128.16 'df -h'
+                    ssh -i deployserver_key.pem azureuser@20.127.128.16 'df -h'
                     '''
                 }
             }
