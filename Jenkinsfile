@@ -13,7 +13,7 @@ pipeline {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''         
-              scp -i  -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser/
+              scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser/
             '''                 
             }
        }
