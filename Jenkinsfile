@@ -4,9 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Ejecutando deploy hacia la maquina docker'
-                withCredentials([file(credentialsId: 'deploymv', variable: 'SSH_KEY_DOCKER')]) {
+                withCredentials([file(credentialsId: 'deploymv')]) {
                     sh '''
-                    ssh -i env.SSH_KEY_DOCKER -t azureuser@20.127.128.16
+                    ssh -i /var/lib/jenkins/deployserver_key.pem -t azureuser@20.127.128.16 'ls -l'
                     '''
                 }
             }
