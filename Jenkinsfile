@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('SSH remote virtual machine') {
         agent {
                 label '10.0.0.5'
             }
