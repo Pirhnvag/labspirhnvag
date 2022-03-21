@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-          sshagent(credentials: ['deploymv']) {
-            sh '''
-               ssh -i $SSH_KEY_DOCKER -l azureuser 20.127.128.16 -t 'ls -l'
-            '''
-          }
-      }
+                echo 'Ejecutando deploy hacia la maquina docker'
+                withCredentials([file(credentialsId: 'deploymv', variable: 'SSH_KEY_DOCKER')]) {
+                    sh '''
+                    ssh -i $SSH_KEY_DOCKER azureuser@20.127.128.16 'df -h'
+                    '''
+                }
+            }
         }
         stage('Test') {
             steps {
