@@ -1,7 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Build') { 
+        stage('Build') {
+        agent {
+                label '10.0.0.5'
+            } 
             steps {
                 sh 'mvn -B -DskipTests clean package' 
             }
@@ -9,7 +12,7 @@ pipeline {
         stage('SSH remote virtual machine') {
         agent {
                 label '10.0.0.5'
-            }
+            } 
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
