@@ -9,7 +9,10 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
-        stage('Sonar') { 
+        stage('Sonar') {
+        agent {
+                label '10.0.0.5'
+            }  
             steps {
                 sh 'mvn --version'
             }
