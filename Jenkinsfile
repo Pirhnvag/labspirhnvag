@@ -5,7 +5,7 @@ pipeline {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
-                'sudo ls -l'
+               ssh -i deployserver_key.pem -t azureuser@20.127.128.16 'sudo ls -l'
             '''
           }
       }
