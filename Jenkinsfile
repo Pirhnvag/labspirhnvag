@@ -1,11 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Build') 
-            agent {
+        stage('Build') {
+        agent {
                 label '10.0.0.5'
             }
-             {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
