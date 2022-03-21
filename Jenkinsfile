@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
+            }
+        }
         stage('SSH remote virtual machine') {
         agent {
                 label '10.0.0.5'
