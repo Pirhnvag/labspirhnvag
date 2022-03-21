@@ -5,7 +5,7 @@ pipeline {
             steps {
           sshagent(credentials: ['deploymv']) {
             sh '''
-               ssh -l azureuser 20.127.128.16 -i /home/azureuser/deployserver_key.pem
+               ssh -l -t azureuser 20.127.128.16 -i /home/azureuser/deployserver_key.pem
             '''
           }
       }
