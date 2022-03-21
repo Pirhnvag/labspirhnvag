@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh 'mvn -B -DskipTests clean package' 
             }
-        }
+       }
         stage('Deploy jar en el servidor destino') {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
@@ -27,9 +27,9 @@ pipeline {
             sh '''
                ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/ && ls -la'
             '''
-          }
-      }
-        }
+            }
+       }
+         }
         stage('Test') {
             steps {
                 echo 'Testing..'
