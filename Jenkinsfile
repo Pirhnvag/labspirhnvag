@@ -7,7 +7,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("test")
+                 app = docker.build("roomti-keycloak")
                 }
             }
         }
