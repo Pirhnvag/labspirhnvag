@@ -1,11 +1,3 @@
-aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 046575588439.dkr.ecr.us-east-2.amazonaws.com
-
-docker tag hello-world:latest 046575588439.dkr.ecr.us-east-2.amazonaws.com/test:hello-world
-
-docker push 046575588439.dkr.ecr.us-east-2.amazonaws.com/test
-
-
-
 pipeline {
 agent any
 environment {
