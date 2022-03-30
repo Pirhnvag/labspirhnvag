@@ -7,14 +7,14 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("roomti-keycloak")
+                 app = docker.build("test")
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script{
-                        docker.withRegistry('https://046575588439.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:awsecr') {
+                        docker.withRegistry('https://046575588439.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-2:awsecr') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest")
                     }
