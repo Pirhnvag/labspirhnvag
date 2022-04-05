@@ -5,12 +5,11 @@ pipeline {
     }
     stages {
         stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner'
-                }
-            }
-        }
+    withSonarQubeEnv('SonarQube') {
+      sh 'mvn clean package sonar:sonar'
+    } // submitted SonarQube taskId is automatically attached to the pipeline context
+  }
+
         stage('Build') { 
             steps { 
                 script{
