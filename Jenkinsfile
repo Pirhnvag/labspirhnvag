@@ -2,9 +2,6 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-        agent {
-                label '10.0.0.5'
-            } 
             steps {
                 sh 'mvn clean package' 
             }
