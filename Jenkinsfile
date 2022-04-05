@@ -5,11 +5,10 @@ pipeline {
     }
     stages {
         stage('SonarQube analysis') {
-    withSonarQubeEnv('SonarQube') {
-      sh 'mvn clean package sonar:sonar'
-    } // submitted SonarQube taskId is automatically attached to the pipeline context
-  }
-
+          withSonarQubeEnv(installationName: 'SonarQube') { // You can override the credential to be used
+          sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+            }
+        }
         stage('Build') { 
             steps { 
                 script{
