@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Build & Test') { 
             steps {
-                sh 'mvn clean test jacoco:prepare-agent jacoco:report'
+                sh 'mvn clean test'
             }
         }
         stage('SonarQube') {
