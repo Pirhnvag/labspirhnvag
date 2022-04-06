@@ -31,21 +31,39 @@ pipeline {
 				}
 			}
 		}
-        stage('package') {
+        stage('Compile Application') {
 			steps {
 				sh 'mvn package -DskipTests'
 			}
 		}
-		stage('save artifacts') {
+		stage('Save Artifacts y/o Ap') {
 			steps {
 				archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
 			}
 		}
 	}
 	
+	    stage('Delivery Application') {
+            steps {
+          sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
+            sh '''         
+              scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser/
+            '''                 
+            }
+        }
+        }
+        stage('Deploy Application') {
+            steps {
+          sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
+            sh '''
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/azureuser/ && ls -la'
+            '''
+                }
+            }
+        }
 	post {
 		always {
-			echo 'Build finalizado exitosamente'
+			echo 'Build CI/CD Exitoso'
 		}
 	}
 }      
