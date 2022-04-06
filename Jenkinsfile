@@ -54,7 +54,7 @@ pipeline {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/azureuser/ && sudo pkill java && java -jar demo-0.0.1-SNAPSHOT.jar & && ls -la' 
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/azureuser/ && ls -la' 
             '''
                 }
             }
