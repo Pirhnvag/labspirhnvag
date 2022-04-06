@@ -21,26 +21,26 @@ import com.classes.model.Persona;
 public class PersonaRest {
 	
 	@Autowired
-	private PersonaDao PersonaDao;
+	private PersonaDao PERSONADAO;
 	
 	@PostMapping("/guardar")
-	public void guardar(@RequestBody Persona persona) {
-		PersonaDao.save(persona);
+	public void guardar(@RequestBody Persona PersonaRest) {
+		PERSONADAO.save(PersonaRest);
 	}
 	
 	@GetMapping("/listar")
 	public List<Persona> listar(){
-		return PersonaDao.findAll();
+		return PERSONADAO.findAll();
 	}
 
 	@DeleteMapping("/eliminar/{id}")
 	public void eliminar(@PathVariable("id") Integer id) {
-		PersonaDao.deleteById(id);
+		PERSONADAO.deleteById(id);
 	}
 	
 	@PutMapping("/actualizar")
-	public void actualizar(@RequestBody Persona persona) {
-		PersonaDao.save(persona);
+	public void actualizar(@RequestBody Persona PersonaRest) {
+		PERSONADAO.save(PersonaRest);
 		
 	}
 }
