@@ -1,42 +1,57 @@
 pipeline {
     agent any
+    tools {
+		maven "Maven3"
+	}
+	
+	environment {
+		def pkgName = 'company-api-rest-crud-completo'
+	}
     stages {
-        stage('Build') {
-        agent {
-                label '10.0.0.5'
-            } 
+        stage('Build & Test') { 
             steps {
-                sh 'mvn clean package' 
+                sh 'mvn clean test jacoco:prepare-agent jacoco:report'
             }
         }
-        stage('Sonar') {
-        agent {
-                label '10.0.0.5'
-            }  
-            steps {
-                sh 'mvn --version'
-            }
-        }
-        stage('Deploy jar en el servidor destino') {
-            steps {
-          sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
-            sh '''         
-              scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser/
-            '''                 
-            }
-        }
-        }
-        stage('Run jar en el servidor destino') {
-        agent {
-                label '10.0.0.5'
-            } 
-            steps {
-          sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
-            sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/ && ls -la'
-            '''
-                }
-            }
-        }
-    }
-}
+        stage('SonarQube') {
+        steps {
+				withSonarQubeEnv('SonarQube') {
+					script {
+						//def fixedBranchName = env.GIT_BRANCH.replace("origin/", "").replace("/", "_")
+						sh 'mvn sonar:sonar -Dsonar.projectName=$pkgName:' + ' -Dsonar.projectKey=$pkgName:'
+					}
+				}
+			}
+		}
+		stage('SonarQube Quality Gate') {
+			steps {
+				echo 'Esperando respuesta analisis SonarQube'
+				timeout(5) {
+					waitForQualityGate abortPipeline: false, credentialsId: 'SONARQUBE_TOKEN'
+				}
+			}
+		}
+        stage('package') {
+			when {
+				branch 'master'
+			}
+			steps {
+				sh 'mvn package -DskipTests'
+			}
+		}
+		stage('save artifacts') {
+			when {
+				branch 'master'
+			}
+			steps {
+				archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+			}
+		}
+	}
+	
+	post {
+		always {
+			echo 'Build finalizado exitosamente'
+		}
+	}
+}      
