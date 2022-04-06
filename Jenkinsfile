@@ -32,17 +32,11 @@ pipeline {
 			}
 		}
         stage('package') {
-			when {
-				branch 'master'
-			}
 			steps {
 				sh 'mvn package -DskipTests'
 			}
 		}
 		stage('save artifacts') {
-			when {
-				branch 'master'
-			}
 			steps {
 				archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
 			}
