@@ -59,11 +59,11 @@
                '''
             sleep(time: 10, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker kill $(docker ps -q)'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker kill $(docker ps -q)' && 'echo "proceso anterior removido" || echo "el proceso del contenedor no existe"'
                '''
                sleep(time: 2, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker rm $(docker ps -a -q)'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker rm $(docker ps -a -q)' && 'echo "contenedor removido" || echo "la imagen del contenedor no existe"'
                '''
             sleep(time: 2, unit: 'SECONDS')
             sh '''
