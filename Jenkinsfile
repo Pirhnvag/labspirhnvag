@@ -59,7 +59,7 @@
                '''
             sleep(time: 10, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker stop container1 && 'docker run -p8090:8080 -d  --name container1 apicrud'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker stop container1' && 'docker run -p8090:8080 -d  --name container1 apicrud'
                '''
                 }
             }
