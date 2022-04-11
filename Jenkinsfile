@@ -1,34 +1,4 @@
-Skip to content
-Product 
-Team
-Enterprise
-Explore 
-Marketplace
-Pricing 
-Search
-Sign in
-Sign up
-Pirhnvag
-/
-labspirhnvag
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-labspirhnvag/Jenkinsfile
-
-projel listo a dormir, salio exitoso
-Latest commit 1702e0f 5 days ago
- History
- 0 contributors
-69 lines (67 sloc)  1.72 KB
-   
-pipeline {
+ pipeline {
     agent any
     tools {
 		maven "Maven3"
