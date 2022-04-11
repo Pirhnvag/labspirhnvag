@@ -55,11 +55,11 @@
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker build -t apicrud .'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker build -t apicrud-dev-qa-prd .'
                '''
             sleep(time: 10, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container_test apicrud'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -d  --name container_for_delete apicrud-dev-qa-prd'
                '''
             sleep(time: 10, unit: 'SECONDS')
             sh '''
@@ -71,7 +71,7 @@
                '''
             sleep(time: 2, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container-prd apicrud'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container-dev-qa-prd apicrud-dev-qa-prd'
                '''
                 }
             }
