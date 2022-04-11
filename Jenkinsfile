@@ -1,3 +1,33 @@
+Skip to content
+Product 
+Team
+Enterprise
+Explore 
+Marketplace
+Pricing 
+Search
+Sign in
+Sign up
+Pirhnvag
+/
+labspirhnvag
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+labspirhnvag/Jenkinsfile
+
+projel listo a dormir, salio exitoso
+Latest commit 1702e0f 5 days ago
+ History
+ 0 contributors
+69 lines (67 sloc)  1.72 KB
+   
 pipeline {
     agent any
     tools {
@@ -46,6 +76,7 @@ pipeline {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''         
               scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/target/demo-0.0.1-SNAPSHOT.jar azureuser@20.127.128.16:/home/azureuser/
+              scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/PIPELINE-API-REST-SPRINGBOOT/Dockerfile azureuser@20.127.128.16:/home/azureuser/
             '''                 
             }
         }
@@ -54,7 +85,8 @@ pipeline {
             steps {
           sshagent(credentials: ['f385715f-c26e-497c-8969-e0bb277197e6']) {
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/azureuser/ && ls -la' 
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'cd /home/azureuser/' && 'docker build -t apicrud .'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 && 'docker stop container1 && 'docker run -p8090:8080 -d  --name container1 apicrud''
             '''
                 }
             }
@@ -66,4 +98,3 @@ pipeline {
 		}
 	}
 } 
-  
