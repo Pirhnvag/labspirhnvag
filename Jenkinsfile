@@ -59,15 +59,19 @@
                '''
             sleep(time: 10, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker kill $(docker ps -q)' && 'echo "proceso anterior removido" || echo "el proceso del contenedor no existe"'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container_test apicrud'
                '''
-               sleep(time: 2, unit: 'SECONDS')
+            sleep(time: 10, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker rm $(docker ps -a -q)' && 'echo "contenedor removido" || echo "la imagen del contenedor no existe"'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker kill $(docker ps -q)'
                '''
             sleep(time: 2, unit: 'SECONDS')
             sh '''
-               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container1 apicrud'
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker rm $(docker ps -a -q)'
+               '''
+            sleep(time: 2, unit: 'SECONDS')
+            sh '''
+               ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -p8090:8080 -d  --name container-prd apicrud'
                '''
                 }
             }
