@@ -28,7 +28,7 @@ public class PersonaRest {
 		PERSONADAO.save(PersonaRest);
 	}
 	
-	@GetMapping("/listar")
+	@GetMapping("/listarpersonajes")
 	public List<Persona> listar(){
 		return PERSONADAO.findAll();
 	}
