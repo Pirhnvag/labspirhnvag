@@ -57,11 +57,11 @@
             sh '''
                ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker build -t apicrud-dev-qa-prd .'
                '''
-            sleep(time: 10, unit: 'SECONDS')
+            sleep(time: 2, unit: 'SECONDS')
             sh '''
                ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker run -d  --name container_for_delete apicrud-dev-qa-prd'
                '''
-            sleep(time: 10, unit: 'SECONDS')
+            sleep(time: 2, unit: 'SECONDS')
             sh '''
                ssh -o StrictHostKeyChecking=no azureuser@20.127.128.16 'docker kill $(docker ps -q)'
                '''
